@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "blood-impact",
+  "name": "Blood Impact Overlay",
+  "category": "Action",
+  "version": "1.0.0",
+  "summary": "A reversible, non-destructive cinematic overlay module for compositing workflows.",
+  "tags": ["cinematic", "overlay", "compositing"],
+  "preview": { "kind": "illustrated-demo", "label": "Illustrative preview · no generated footage" },
+  "inputs": ["source-video", "mask", "frame-range"],
+  "outputs": ["rgba-overlay", "alpha-mask"],
+  "parameters": [
+    { "id": "intensity", "label": "Overlay amount", "group": "Composite", "type": "range", "default": 0.3, "min": 0, "max": 1, "step": 0.01 },
+    { "id": "opacity", "label": "Opacity", "group": "Composite", "type": "range", "default": 0.54, "min": 0, "max": 1, "step": 0.01 },
+    { "id": "feather", "label": "Edge feather", "group": "Mask", "type": "range", "default": 0.35, "min": 0, "max": 1, "step": 0.01 },
+    { "id": "duration", "label": "Duration", "group": "Timing", "type": "range", "default": 16, "min": 1, "max": 96, "step": 1, "unit": "frames" }
+  ],
+  "capabilities": { "ai": ["segmentation", "inpainting"], "mcp": ["composite.add-layer", "mask.feather"], "davinci": ["fusion.add-layer", "fusion.create-mask"] },
+  "execution": { "mode": "demo", "adapter": "composite.masked-overlay", "safety": "media-compositing-only" }
+}

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "smoke",
+  "name": "Smoke Element",
+  "category": "Atmosphere",
+  "version": "1.0.0",
+  "summary": "Composite a tracked smoke element with density, drift, and edge controls.",
+  "tags": ["smoke", "atmosphere", "particle"],
+  "preview": { "kind": "illustrated-demo", "label": "Synthetic plate · atmospheric preview" },
+  "inputs": ["source-video", "emitter-position", "optional-depth-map"],
+  "outputs": ["rgba-element", "depth-aware-composite"],
+  "parameters": [
+    { "id": "density", "label": "Density", "group": "Element", "type": "range", "default": 0.55, "min": 0, "max": 1, "step": 0.01 },
+    { "id": "drift", "label": "Drift", "group": "Motion", "type": "range", "default": 0.4, "min": 0, "max": 1, "step": 0.01 },
+    { "id": "opacity", "label": "Opacity", "group": "Composite", "type": "range", "default": 0.7, "min": 0, "max": 1, "step": 0.01 },
+    { "id": "blend", "label": "Blend mode", "group": "Composite", "type": "select", "default": "screen", "options": ["screen", "normal", "add"] }
+  ],
+  "capabilities": { "ai": ["video-generation", "segmentation"], "mcp": ["composite.add-layer", "tracking.track-point"], "davinci": ["fusion.add-layer", "fusion.create-mask"] },
+  "execution": { "mode": "demo", "adapter": "composite.particle-element", "safety": "media-compositing-only" }
+}

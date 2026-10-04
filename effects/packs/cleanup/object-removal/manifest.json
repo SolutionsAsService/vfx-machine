@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "object-removal",
+  "name": "Object Removal",
+  "category": "Cleanup",
+  "version": "1.0.0",
+  "summary": "Define a tracked removal mask and temporal clean-plate generation request.",
+  "tags": ["cleanup", "mask", "inpainting", "tracking"],
+  "preview": { "kind": "illustrated-demo", "label": "Illustrative cleanup preview · not a rendered result" },
+  "inputs": ["source-video", "mask", "frame-range"],
+  "outputs": ["clean-plate-request", "track-data", "composite-layer"],
+  "parameters": [
+    { "id": "feather", "label": "Mask feather", "group": "Mask", "type": "range", "default": 0.42, "min": 0, "max": 1, "step": 0.01 },
+    { "id": "temporal", "label": "Temporal radius", "group": "Analysis", "type": "range", "default": 12, "min": 1, "max": 48, "step": 1, "unit": "frames" },
+    { "id": "fill", "label": "Fill strategy", "group": "Generation", "type": "select", "default": "temporal", "options": ["temporal", "inpaint", "manual-clean-plate"] }
+  ],
+  "capabilities": { "ai": ["object-removal", "inpainting", "tracking"], "mcp": ["tracking.track-mask", "cleanup.build-clean-plate"], "davinci": ["fusion.create-mask", "fusion.track"] },
+  "execution": { "mode": "demo", "adapter": "cleanup.clean-plate", "safety": "non-destructive-media-edit" }
+}

@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "fog",
+  "name": "Atmospheric Fog",
+  "category": "Atmosphere",
+  "version": "1.0.0",
+  "summary": "Add a depth-aware atmospheric pass with adjustable horizon and falloff.",
+  "tags": ["fog", "depth", "environment"],
+  "preview": { "kind": "illustrated-demo", "label": "Synthetic plate · fog preview" },
+  "inputs": ["source-video", "optional-depth-map"],
+  "outputs": ["atmosphere-layer", "depth-mask"],
+  "parameters": [
+    { "id": "intensity", "label": "Density", "group": "Atmosphere", "type": "range", "default": 0.36, "min": 0, "max": 1, "step": 0.01 },
+    { "id": "horizon", "label": "Horizon", "group": "Depth", "type": "range", "default": 0.52, "min": 0, "max": 1, "step": 0.01 },
+    { "id": "tint", "label": "Fog tint", "group": "Color", "type": "color", "default": "#a9b9c0" }
+  ],
+  "capabilities": { "ai": ["depth-estimation", "video-generation"], "mcp": ["media.inspect", "composite.add-layer"], "davinci": ["fusion.add-layer", "fusion.create-mask"] },
+  "execution": { "mode": "demo", "adapter": "composite.depth-atmosphere", "safety": "media-compositing-only" }
+}

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "camera-shake",
+  "name": "Camera Shake",
+  "category": "Camera",
+  "version": "1.0.0",
+  "summary": "Create editable camera transform keyframes around a tracked event.",
+  "tags": ["camera", "transform", "keyframes"],
+  "preview": { "kind": "illustrated-demo", "label": "Synthetic plate · transform preview" },
+  "inputs": ["source-video", "event-frame", "optional-motion-track"],
+  "outputs": ["transform-keyframes", "operation-manifest"],
+  "parameters": [
+    { "id": "intensity", "label": "Amplitude", "group": "Motion", "type": "range", "default": 0.28, "min": 0, "max": 1, "step": 0.01 },
+    { "id": "frequency", "label": "Frequency", "group": "Motion", "type": "range", "default": 0.6, "min": 0.05, "max": 1, "step": 0.01 },
+    { "id": "decay", "label": "Decay", "group": "Timing", "type": "range", "default": 0.72, "min": 0, "max": 1, "step": 0.01 },
+    { "id": "duration", "label": "Duration", "group": "Timing", "type": "range", "default": 12, "min": 1, "max": 120, "step": 1, "unit": "frames" }
+  ],
+  "capabilities": { "ai": ["motion-analysis", "tracking"], "mcp": ["timeline.set-keyframes"], "davinci": ["timeline.set-keyframes", "fusion.transform"] },
+  "execution": { "mode": "demo", "adapter": "timeline.transform-keyframes", "safety": "non-destructive-transform" }
+}

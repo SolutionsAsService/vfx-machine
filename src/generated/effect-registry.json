@@ -1,0 +1,1286 @@
+[
+  {
+    "schemaVersion": 1,
+    "id": "blood-impact",
+    "name": "Blood Impact Overlay",
+    "category": "Action",
+    "version": "1.0.0",
+    "summary": "A reversible, non-destructive cinematic overlay module for compositing workflows.",
+    "tags": [
+      "cinematic",
+      "overlay",
+      "compositing"
+    ],
+    "preview": {
+      "kind": "illustrated-demo",
+      "label": "Illustrative preview · no generated footage"
+    },
+    "inputs": [
+      "source-video",
+      "mask",
+      "frame-range"
+    ],
+    "outputs": [
+      "rgba-overlay",
+      "alpha-mask"
+    ],
+    "parameters": [
+      {
+        "id": "intensity",
+        "label": "Overlay amount",
+        "group": "Composite",
+        "type": "range",
+        "default": 0.3,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "opacity",
+        "label": "Opacity",
+        "group": "Composite",
+        "type": "range",
+        "default": 0.54,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "feather",
+        "label": "Edge feather",
+        "group": "Mask",
+        "type": "range",
+        "default": 0.35,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "duration",
+        "label": "Duration",
+        "group": "Timing",
+        "type": "range",
+        "default": 16,
+        "min": 1,
+        "max": 96,
+        "step": 1,
+        "unit": "frames"
+      }
+    ],
+    "capabilities": {
+      "ai": [
+        "segmentation",
+        "inpainting"
+      ],
+      "mcp": [
+        "composite.add-layer",
+        "mask.feather"
+      ],
+      "davinci": [
+        "fusion.add-layer",
+        "fusion.create-mask"
+      ]
+    },
+    "execution": {
+      "mode": "demo",
+      "adapter": "composite.masked-overlay",
+      "safety": "media-compositing-only"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "id": "gunshot-impact",
+    "name": "Gunshot Impact",
+    "category": "Action",
+    "version": "1.0.0",
+    "summary": "Build a timed impact composite from a tracked point, plate, and independent debris layers.",
+    "tags": [
+      "impact",
+      "debris",
+      "blood",
+      "tracking"
+    ],
+    "preview": {
+      "kind": "illustrated-demo",
+      "label": "Synthetic plate · illustrative composite only"
+    },
+    "inputs": [
+      "source-video",
+      "frame-range",
+      "impact-position",
+      "optional-mask"
+    ],
+    "outputs": [
+      "composite-layer",
+      "alpha-mask",
+      "operation-manifest"
+    ],
+    "parameters": [
+      {
+        "id": "intensity",
+        "label": "Impact energy",
+        "group": "Impact",
+        "type": "range",
+        "default": 0.62,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "blood",
+        "label": "Cinematic overlay",
+        "group": "Impact",
+        "type": "range",
+        "default": 0.18,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "debris",
+        "label": "Debris",
+        "group": "Secondary elements",
+        "type": "range",
+        "default": 0.45,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "smoke",
+        "label": "Smoke",
+        "group": "Secondary elements",
+        "type": "range",
+        "default": 0.25,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "duration",
+        "label": "Duration",
+        "group": "Timing",
+        "type": "range",
+        "default": 18,
+        "min": 1,
+        "max": 96,
+        "step": 1,
+        "unit": "frames"
+      },
+      {
+        "id": "blend",
+        "label": "Blend mode",
+        "group": "Compositing",
+        "type": "select",
+        "default": "screen",
+        "options": [
+          "screen",
+          "add",
+          "normal"
+        ]
+      }
+    ],
+    "capabilities": {
+      "ai": [
+        "video-generation",
+        "inpainting",
+        "analysis"
+      ],
+      "mcp": [
+        "media.inspect",
+        "tracking.track-point",
+        "composite.add-layer"
+      ],
+      "davinci": [
+        "fusion.add-layer",
+        "timeline.set-keyframes"
+      ]
+    },
+    "execution": {
+      "mode": "demo",
+      "adapter": "composite.overlay",
+      "safety": "media-compositing-only"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "id": "muzzle-flash",
+    "name": "Muzzle Flash",
+    "category": "Action",
+    "version": "1.0.0",
+    "summary": "Layer a frame-accurate flash element with optional bloom and illumination pass.",
+    "tags": [
+      "flash",
+      "light",
+      "action"
+    ],
+    "preview": {
+      "kind": "illustrated-demo",
+      "label": "Synthetic plate · preview overlay"
+    },
+    "inputs": [
+      "source-video",
+      "frame-range",
+      "emitter-position"
+    ],
+    "outputs": [
+      "flash-layer",
+      "light-wrap-layer"
+    ],
+    "parameters": [
+      {
+        "id": "intensity",
+        "label": "Intensity",
+        "group": "Flash",
+        "type": "range",
+        "default": 0.7,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "duration",
+        "label": "Duration",
+        "group": "Timing",
+        "type": "range",
+        "default": 3,
+        "min": 1,
+        "max": 12,
+        "step": 1,
+        "unit": "frames"
+      },
+      {
+        "id": "temperature",
+        "label": "Color temperature",
+        "group": "Light",
+        "type": "range",
+        "default": 0.65,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "bloom",
+        "label": "Bloom",
+        "group": "Light",
+        "type": "range",
+        "default": 0.38,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      }
+    ],
+    "capabilities": {
+      "ai": [
+        "video-generation"
+      ],
+      "mcp": [
+        "composite.add-layer",
+        "timeline.set-keyframes"
+      ],
+      "davinci": [
+        "fusion.add-layer",
+        "timeline.set-keyframes"
+      ]
+    },
+    "execution": {
+      "mode": "demo",
+      "adapter": "composite.flash",
+      "safety": "media-compositing-only"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "id": "fog",
+    "name": "Atmospheric Fog",
+    "category": "Atmosphere",
+    "version": "1.0.0",
+    "summary": "Add a depth-aware atmospheric pass with adjustable horizon and falloff.",
+    "tags": [
+      "fog",
+      "depth",
+      "environment"
+    ],
+    "preview": {
+      "kind": "illustrated-demo",
+      "label": "Synthetic plate · fog preview"
+    },
+    "inputs": [
+      "source-video",
+      "optional-depth-map"
+    ],
+    "outputs": [
+      "atmosphere-layer",
+      "depth-mask"
+    ],
+    "parameters": [
+      {
+        "id": "intensity",
+        "label": "Density",
+        "group": "Atmosphere",
+        "type": "range",
+        "default": 0.36,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "horizon",
+        "label": "Horizon",
+        "group": "Depth",
+        "type": "range",
+        "default": 0.52,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "tint",
+        "label": "Fog tint",
+        "group": "Color",
+        "type": "color",
+        "default": "#a9b9c0"
+      }
+    ],
+    "capabilities": {
+      "ai": [
+        "depth-estimation",
+        "video-generation"
+      ],
+      "mcp": [
+        "media.inspect",
+        "composite.add-layer"
+      ],
+      "davinci": [
+        "fusion.add-layer",
+        "fusion.create-mask"
+      ]
+    },
+    "execution": {
+      "mode": "demo",
+      "adapter": "composite.depth-atmosphere",
+      "safety": "media-compositing-only"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "id": "rain",
+    "name": "Rain Pass",
+    "category": "Atmosphere",
+    "version": "1.0.0",
+    "summary": "Layer rain streaks, intensity, and foreground/background depth separation.",
+    "tags": [
+      "rain",
+      "weather",
+      "depth"
+    ],
+    "preview": {
+      "kind": "illustrated-demo",
+      "label": "Synthetic plate · weather preview"
+    },
+    "inputs": [
+      "source-video",
+      "optional-depth-map"
+    ],
+    "outputs": [
+      "particle-layer",
+      "depth-mask"
+    ],
+    "parameters": [
+      {
+        "id": "intensity",
+        "label": "Rain density",
+        "group": "Particles",
+        "type": "range",
+        "default": 0.45,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "wind",
+        "label": "Wind angle",
+        "group": "Motion",
+        "type": "range",
+        "default": 0.2,
+        "min": -1,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "speed",
+        "label": "Drop speed",
+        "group": "Motion",
+        "type": "range",
+        "default": 0.7,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      }
+    ],
+    "capabilities": {
+      "ai": [
+        "video-generation",
+        "depth-estimation"
+      ],
+      "mcp": [
+        "composite.add-layer"
+      ],
+      "davinci": [
+        "fusion.add-layer"
+      ]
+    },
+    "execution": {
+      "mode": "demo",
+      "adapter": "composite.weather-particles",
+      "safety": "media-compositing-only"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "id": "smoke",
+    "name": "Smoke Element",
+    "category": "Atmosphere",
+    "version": "1.0.0",
+    "summary": "Composite a tracked smoke element with density, drift, and edge controls.",
+    "tags": [
+      "smoke",
+      "atmosphere",
+      "particle"
+    ],
+    "preview": {
+      "kind": "illustrated-demo",
+      "label": "Synthetic plate · atmospheric preview"
+    },
+    "inputs": [
+      "source-video",
+      "emitter-position",
+      "optional-depth-map"
+    ],
+    "outputs": [
+      "rgba-element",
+      "depth-aware-composite"
+    ],
+    "parameters": [
+      {
+        "id": "density",
+        "label": "Density",
+        "group": "Element",
+        "type": "range",
+        "default": 0.55,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "drift",
+        "label": "Drift",
+        "group": "Motion",
+        "type": "range",
+        "default": 0.4,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "opacity",
+        "label": "Opacity",
+        "group": "Composite",
+        "type": "range",
+        "default": 0.7,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "blend",
+        "label": "Blend mode",
+        "group": "Composite",
+        "type": "select",
+        "default": "screen",
+        "options": [
+          "screen",
+          "normal",
+          "add"
+        ]
+      }
+    ],
+    "capabilities": {
+      "ai": [
+        "video-generation",
+        "segmentation"
+      ],
+      "mcp": [
+        "composite.add-layer",
+        "tracking.track-point"
+      ],
+      "davinci": [
+        "fusion.add-layer",
+        "fusion.create-mask"
+      ]
+    },
+    "execution": {
+      "mode": "demo",
+      "adapter": "composite.particle-element",
+      "safety": "media-compositing-only"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "id": "camera-shake",
+    "name": "Camera Shake",
+    "category": "Camera",
+    "version": "1.0.0",
+    "summary": "Create editable camera transform keyframes around a tracked event.",
+    "tags": [
+      "camera",
+      "transform",
+      "keyframes"
+    ],
+    "preview": {
+      "kind": "illustrated-demo",
+      "label": "Synthetic plate · transform preview"
+    },
+    "inputs": [
+      "source-video",
+      "event-frame",
+      "optional-motion-track"
+    ],
+    "outputs": [
+      "transform-keyframes",
+      "operation-manifest"
+    ],
+    "parameters": [
+      {
+        "id": "intensity",
+        "label": "Amplitude",
+        "group": "Motion",
+        "type": "range",
+        "default": 0.28,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "frequency",
+        "label": "Frequency",
+        "group": "Motion",
+        "type": "range",
+        "default": 0.6,
+        "min": 0.05,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "decay",
+        "label": "Decay",
+        "group": "Timing",
+        "type": "range",
+        "default": 0.72,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "duration",
+        "label": "Duration",
+        "group": "Timing",
+        "type": "range",
+        "default": 12,
+        "min": 1,
+        "max": 120,
+        "step": 1,
+        "unit": "frames"
+      }
+    ],
+    "capabilities": {
+      "ai": [
+        "motion-analysis",
+        "tracking"
+      ],
+      "mcp": [
+        "timeline.set-keyframes"
+      ],
+      "davinci": [
+        "timeline.set-keyframes",
+        "fusion.transform"
+      ]
+    },
+    "execution": {
+      "mode": "demo",
+      "adapter": "timeline.transform-keyframes",
+      "safety": "non-destructive-transform"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "id": "chromatic-aberration",
+    "name": "Chromatic Aberration",
+    "category": "Camera",
+    "version": "1.0.0",
+    "summary": "Add controllable channel separation with a reversible optical-distortion pass.",
+    "tags": [
+      "lens",
+      "rgb",
+      "distortion"
+    ],
+    "preview": {
+      "kind": "illustrated-demo",
+      "label": "Synthetic plate · optical preview"
+    },
+    "inputs": [
+      "source-video"
+    ],
+    "outputs": [
+      "distortion-pass"
+    ],
+    "parameters": [
+      {
+        "id": "intensity",
+        "label": "Amount",
+        "group": "Optics",
+        "type": "range",
+        "default": 0.22,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "radial",
+        "label": "Radial falloff",
+        "group": "Optics",
+        "type": "range",
+        "default": 0.5,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "opacity",
+        "label": "Opacity",
+        "group": "Composite",
+        "type": "range",
+        "default": 0.82,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      }
+    ],
+    "capabilities": {
+      "ai": [],
+      "mcp": [
+        "composite.add-layer"
+      ],
+      "davinci": [
+        "fusion.distort"
+      ]
+    },
+    "execution": {
+      "mode": "demo",
+      "adapter": "composite.channel-separation",
+      "safety": "media-compositing-only"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "id": "object-removal",
+    "name": "Object Removal",
+    "category": "Cleanup",
+    "version": "1.0.0",
+    "summary": "Define a tracked removal mask and temporal clean-plate generation request.",
+    "tags": [
+      "cleanup",
+      "mask",
+      "inpainting",
+      "tracking"
+    ],
+    "preview": {
+      "kind": "illustrated-demo",
+      "label": "Illustrative cleanup preview · not a rendered result"
+    },
+    "inputs": [
+      "source-video",
+      "mask",
+      "frame-range"
+    ],
+    "outputs": [
+      "clean-plate-request",
+      "track-data",
+      "composite-layer"
+    ],
+    "parameters": [
+      {
+        "id": "feather",
+        "label": "Mask feather",
+        "group": "Mask",
+        "type": "range",
+        "default": 0.42,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "temporal",
+        "label": "Temporal radius",
+        "group": "Analysis",
+        "type": "range",
+        "default": 12,
+        "min": 1,
+        "max": 48,
+        "step": 1,
+        "unit": "frames"
+      },
+      {
+        "id": "fill",
+        "label": "Fill strategy",
+        "group": "Generation",
+        "type": "select",
+        "default": "temporal",
+        "options": [
+          "temporal",
+          "inpaint",
+          "manual-clean-plate"
+        ]
+      }
+    ],
+    "capabilities": {
+      "ai": [
+        "object-removal",
+        "inpainting",
+        "tracking"
+      ],
+      "mcp": [
+        "tracking.track-mask",
+        "cleanup.build-clean-plate"
+      ],
+      "davinci": [
+        "fusion.create-mask",
+        "fusion.track"
+      ]
+    },
+    "execution": {
+      "mode": "demo",
+      "adapter": "cleanup.clean-plate",
+      "safety": "non-destructive-media-edit"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "id": "roto-mask",
+    "name": "Rotoscope Mask",
+    "category": "Cleanup",
+    "version": "1.0.0",
+    "summary": "Create a subject matte request with edge refinement and temporal propagation.",
+    "tags": [
+      "rotoscoping",
+      "mask",
+      "segmentation"
+    ],
+    "preview": {
+      "kind": "illustrated-demo",
+      "label": "Illustrative matte preview · no AI segmentation connected"
+    },
+    "inputs": [
+      "source-video",
+      "frame-range"
+    ],
+    "outputs": [
+      "alpha-matte",
+      "tracked-spline"
+    ],
+    "parameters": [
+      {
+        "id": "edge",
+        "label": "Edge refinement",
+        "group": "Matte",
+        "type": "range",
+        "default": 0.58,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "propagation",
+        "label": "Temporal propagation",
+        "group": "Tracking",
+        "type": "range",
+        "default": 0.76,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "matteMode",
+        "label": "Matte output",
+        "group": "Output",
+        "type": "select",
+        "default": "alpha",
+        "options": [
+          "alpha",
+          "holdout",
+          "garbage-matte"
+        ]
+      }
+    ],
+    "capabilities": {
+      "ai": [
+        "segmentation",
+        "rotoscoping",
+        "tracking"
+      ],
+      "mcp": [
+        "mask.create",
+        "tracking.track-mask"
+      ],
+      "davinci": [
+        "fusion.create-mask",
+        "fusion.track"
+      ]
+    },
+    "execution": {
+      "mode": "demo",
+      "adapter": "cleanup.roto-mask",
+      "safety": "non-destructive-media-edit"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "id": "lut-application",
+    "name": "3D LUT Apply",
+    "category": "Color",
+    "version": "1.0.0",
+    "summary": "Attach a validated 3D .cube look to the color pipeline with adjustable mix.",
+    "tags": [
+      "lut",
+      "color",
+      "look-development"
+    ],
+    "preview": {
+      "kind": "illustrated-demo",
+      "label": "Approximate preview · LUT is not applied in this build"
+    },
+    "inputs": [
+      "source-video",
+      "cube-lut"
+    ],
+    "outputs": [
+      "lut-operation",
+      "grade-settings"
+    ],
+    "parameters": [
+      {
+        "id": "intensity",
+        "label": "Mix",
+        "group": "Apply",
+        "type": "range",
+        "default": 1,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "interpolation",
+        "label": "Interpolation",
+        "group": "Apply",
+        "type": "select",
+        "default": "trilinear",
+        "options": [
+          "trilinear",
+          "tetrahedral",
+          "nearest"
+        ]
+      },
+      {
+        "id": "enabled",
+        "label": "Enable LUT",
+        "group": "Apply",
+        "type": "toggle",
+        "default": true
+      }
+    ],
+    "capabilities": {
+      "ai": [],
+      "mcp": [
+        "color.apply-lut"
+      ],
+      "davinci": [
+        "color.apply-lut"
+      ]
+    },
+    "execution": {
+      "mode": "demo",
+      "adapter": "color.lut",
+      "safety": "non-destructive-color-operation"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "id": "cinematic-grade",
+    "name": "Cinematic Grade",
+    "category": "Color",
+    "version": "1.0.0",
+    "summary": "A look-development starting point with independent exposure, contrast, and saturation.",
+    "tags": [
+      "color",
+      "grade",
+      "look-development"
+    ],
+    "preview": {
+      "kind": "illustrated-demo",
+      "label": "CSS approximation · not a color-managed render"
+    },
+    "inputs": [
+      "source-video",
+      "optional-reference-still"
+    ],
+    "outputs": [
+      "grade-settings",
+      "operation-manifest"
+    ],
+    "parameters": [
+      {
+        "id": "exposure",
+        "label": "Exposure",
+        "group": "Primary",
+        "type": "range",
+        "default": 0.08,
+        "min": -1,
+        "max": 1,
+        "step": 0.01,
+        "unit": "EV"
+      },
+      {
+        "id": "contrast",
+        "label": "Contrast",
+        "group": "Primary",
+        "type": "range",
+        "default": 0.18,
+        "min": -1,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "saturation",
+        "label": "Saturation",
+        "group": "Primary",
+        "type": "range",
+        "default": 0.12,
+        "min": -1,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "temperature",
+        "label": "Temperature",
+        "group": "Balance",
+        "type": "range",
+        "default": 0.06,
+        "min": -1,
+        "max": 1,
+        "step": 0.01
+      }
+    ],
+    "capabilities": {
+      "ai": [
+        "image-analysis",
+        "look-matching"
+      ],
+      "mcp": [
+        "color.set-primary"
+      ],
+      "davinci": [
+        "color.create-node",
+        "color.set-primary"
+      ]
+    },
+    "execution": {
+      "mode": "demo",
+      "adapter": "color.primary-grade",
+      "safety": "non-destructive-color-operation"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "id": "black-and-white",
+    "name": "Black & White",
+    "category": "Film Looks",
+    "version": "1.0.0",
+    "summary": "A reversible monochrome treatment with contrast and split-toning controls.",
+    "tags": [
+      "monochrome",
+      "film-look",
+      "color"
+    ],
+    "preview": {
+      "kind": "illustrated-demo",
+      "label": "CSS approximation · look preview"
+    },
+    "inputs": [
+      "source-video"
+    ],
+    "outputs": [
+      "grade-settings"
+    ],
+    "parameters": [
+      {
+        "id": "intensity",
+        "label": "Monochrome mix",
+        "group": "Look",
+        "type": "range",
+        "default": 1,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "contrast",
+        "label": "Contrast",
+        "group": "Tone",
+        "type": "range",
+        "default": 0.1,
+        "min": -1,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "grain",
+        "label": "Grain",
+        "group": "Texture",
+        "type": "range",
+        "default": 0.08,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      }
+    ],
+    "capabilities": {
+      "ai": [],
+      "mcp": [
+        "color.set-primary"
+      ],
+      "davinci": [
+        "color.create-node",
+        "color.set-primary"
+      ]
+    },
+    "execution": {
+      "mode": "demo",
+      "adapter": "color.monochrome",
+      "safety": "non-destructive-color-operation"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "id": "film-grain",
+    "name": "Film Grain",
+    "category": "Film Looks",
+    "version": "1.0.0",
+    "summary": "Add a controllable grain overlay with scale, response, and shadow weighting.",
+    "tags": [
+      "grain",
+      "film",
+      "texture"
+    ],
+    "preview": {
+      "kind": "illustrated-demo",
+      "label": "CSS approximation · demo overlay"
+    },
+    "inputs": [
+      "source-video"
+    ],
+    "outputs": [
+      "grain-pass",
+      "operation-manifest"
+    ],
+    "parameters": [
+      {
+        "id": "intensity",
+        "label": "Amount",
+        "group": "Grain",
+        "type": "range",
+        "default": 0.24,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "size",
+        "label": "Grain scale",
+        "group": "Grain",
+        "type": "range",
+        "default": 0.35,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "shadowWeight",
+        "label": "Shadow response",
+        "group": "Response",
+        "type": "range",
+        "default": 0.52,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      }
+    ],
+    "capabilities": {
+      "ai": [],
+      "mcp": [
+        "color.add-texture-pass"
+      ],
+      "davinci": [
+        "color.add-film-grain"
+      ]
+    },
+    "execution": {
+      "mode": "demo",
+      "adapter": "color.grain-overlay",
+      "safety": "non-destructive-color-operation"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "id": "night-vision",
+    "name": "Night Vision Look",
+    "category": "Film Looks",
+    "version": "1.0.0",
+    "summary": "A stylized monochrome-green display treatment for fictional footage and look development.",
+    "tags": [
+      "night-vision",
+      "green",
+      "stylized"
+    ],
+    "preview": {
+      "kind": "illustrated-demo",
+      "label": "CSS approximation · fictional display look"
+    },
+    "inputs": [
+      "source-video"
+    ],
+    "outputs": [
+      "grade-settings",
+      "display-overlay"
+    ],
+    "parameters": [
+      {
+        "id": "intensity",
+        "label": "Treatment",
+        "group": "Look",
+        "type": "range",
+        "default": 0.68,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "bloom",
+        "label": "Glow",
+        "group": "Display",
+        "type": "range",
+        "default": 0.26,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "scanlines",
+        "label": "Scanline overlay",
+        "group": "Display",
+        "type": "toggle",
+        "default": true
+      }
+    ],
+    "capabilities": {
+      "ai": [],
+      "mcp": [
+        "color.set-primary",
+        "composite.add-layer"
+      ],
+      "davinci": [
+        "color.create-node",
+        "fusion.add-layer"
+      ]
+    },
+    "execution": {
+      "mode": "demo",
+      "adapter": "color.stylized-monochrome",
+      "safety": "fictional-media-look"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "id": "point-track",
+    "name": "Point Track",
+    "category": "Tracking",
+    "version": "1.0.0",
+    "summary": "Create a track request and attach downstream overlays to a stable point.",
+    "tags": [
+      "tracking",
+      "point",
+      "motion"
+    ],
+    "preview": {
+      "kind": "illustrated-demo",
+      "label": "Demo track overlay · no analysis run"
+    },
+    "inputs": [
+      "source-video",
+      "seed-point",
+      "frame-range"
+    ],
+    "outputs": [
+      "track-curve",
+      "confidence-series"
+    ],
+    "parameters": [
+      {
+        "id": "searchRadius",
+        "label": "Search radius",
+        "group": "Tracking",
+        "type": "range",
+        "default": 0.42,
+        "min": 0.02,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "smoothing",
+        "label": "Smoothing",
+        "group": "Track",
+        "type": "range",
+        "default": 0.28,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "id": "confidence",
+        "label": "Confidence floor",
+        "group": "Track",
+        "type": "range",
+        "default": 0.65,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      }
+    ],
+    "capabilities": {
+      "ai": [
+        "tracking",
+        "analysis"
+      ],
+      "mcp": [
+        "tracking.track-point"
+      ],
+      "davinci": [
+        "fusion.track"
+      ]
+    },
+    "execution": {
+      "mode": "demo",
+      "adapter": "tracking.point",
+      "safety": "analysis-only-until-applied"
+    }
+  }
+]

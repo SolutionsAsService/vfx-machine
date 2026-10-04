@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "chromatic-aberration",
+  "name": "Chromatic Aberration",
+  "category": "Camera",
+  "version": "1.0.0",
+  "summary": "Add controllable channel separation with a reversible optical-distortion pass.",
+  "tags": ["lens", "rgb", "distortion"],
+  "preview": { "kind": "illustrated-demo", "label": "Synthetic plate · optical preview" },
+  "inputs": ["source-video"],
+  "outputs": ["distortion-pass"],
+  "parameters": [
+    { "id": "intensity", "label": "Amount", "group": "Optics", "type": "range", "default": 0.22, "min": 0, "max": 1, "step": 0.01 },
+    { "id": "radial", "label": "Radial falloff", "group": "Optics", "type": "range", "default": 0.5, "min": 0, "max": 1, "step": 0.01 },
+    { "id": "opacity", "label": "Opacity", "group": "Composite", "type": "range", "default": 0.82, "min": 0, "max": 1, "step": 0.01 }
+  ],
+  "capabilities": { "ai": [], "mcp": ["composite.add-layer"], "davinci": ["fusion.distort"] },
+  "execution": { "mode": "demo", "adapter": "composite.channel-separation", "safety": "media-compositing-only" }
+}

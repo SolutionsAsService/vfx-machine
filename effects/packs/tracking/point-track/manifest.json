@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "point-track",
+  "name": "Point Track",
+  "category": "Tracking",
+  "version": "1.0.0",
+  "summary": "Create a track request and attach downstream overlays to a stable point.",
+  "tags": ["tracking", "point", "motion"],
+  "preview": { "kind": "illustrated-demo", "label": "Demo track overlay · no analysis run" },
+  "inputs": ["source-video", "seed-point", "frame-range"],
+  "outputs": ["track-curve", "confidence-series"],
+  "parameters": [
+    { "id": "searchRadius", "label": "Search radius", "group": "Tracking", "type": "range", "default": 0.42, "min": 0.02, "max": 1, "step": 0.01 },
+    { "id": "smoothing", "label": "Smoothing", "group": "Track", "type": "range", "default": 0.28, "min": 0, "max": 1, "step": 0.01 },
+    { "id": "confidence", "label": "Confidence floor", "group": "Track", "type": "range", "default": 0.65, "min": 0, "max": 1, "step": 0.01 }
+  ],
+  "capabilities": { "ai": ["tracking", "analysis"], "mcp": ["tracking.track-point"], "davinci": ["fusion.track"] },
+  "execution": { "mode": "demo", "adapter": "tracking.point", "safety": "analysis-only-until-applied" }
+}

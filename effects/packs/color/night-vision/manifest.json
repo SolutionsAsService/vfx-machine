@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "night-vision",
+  "name": "Night Vision Look",
+  "category": "Film Looks",
+  "version": "1.0.0",
+  "summary": "A stylized monochrome-green display treatment for fictional footage and look development.",
+  "tags": ["night-vision", "green", "stylized"],
+  "preview": { "kind": "illustrated-demo", "label": "CSS approximation · fictional display look" },
+  "inputs": ["source-video"],
+  "outputs": ["grade-settings", "display-overlay"],
+  "parameters": [
+    { "id": "intensity", "label": "Treatment", "group": "Look", "type": "range", "default": 0.68, "min": 0, "max": 1, "step": 0.01 },
+    { "id": "bloom", "label": "Glow", "group": "Display", "type": "range", "default": 0.26, "min": 0, "max": 1, "step": 0.01 },
+    { "id": "scanlines", "label": "Scanline overlay", "group": "Display", "type": "toggle", "default": true }
+  ],
+  "capabilities": { "ai": [], "mcp": ["color.set-primary", "composite.add-layer"], "davinci": ["color.create-node", "fusion.add-layer"] },
+  "execution": { "mode": "demo", "adapter": "color.stylized-monochrome", "safety": "fictional-media-look" }
+}

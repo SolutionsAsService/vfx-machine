@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "film-grain",
+  "name": "Film Grain",
+  "category": "Film Looks",
+  "version": "1.0.0",
+  "summary": "Add a controllable grain overlay with scale, response, and shadow weighting.",
+  "tags": ["grain", "film", "texture"],
+  "preview": { "kind": "illustrated-demo", "label": "CSS approximation · demo overlay" },
+  "inputs": ["source-video"],
+  "outputs": ["grain-pass", "operation-manifest"],
+  "parameters": [
+    { "id": "intensity", "label": "Amount", "group": "Grain", "type": "range", "default": 0.24, "min": 0, "max": 1, "step": 0.01 },
+    { "id": "size", "label": "Grain scale", "group": "Grain", "type": "range", "default": 0.35, "min": 0, "max": 1, "step": 0.01 },
+    { "id": "shadowWeight", "label": "Shadow response", "group": "Response", "type": "range", "default": 0.52, "min": 0, "max": 1, "step": 0.01 }
+  ],
+  "capabilities": { "ai": [], "mcp": ["color.add-texture-pass"], "davinci": ["color.add-film-grain"] },
+  "execution": { "mode": "demo", "adapter": "color.grain-overlay", "safety": "non-destructive-color-operation" }
+}

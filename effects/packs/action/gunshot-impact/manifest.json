@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "gunshot-impact",
+  "name": "Gunshot Impact",
+  "category": "Action",
+  "version": "1.0.0",
+  "summary": "Build a timed impact composite from a tracked point, plate, and independent debris layers.",
+  "tags": ["impact", "debris", "blood", "tracking"],
+  "preview": { "kind": "illustrated-demo", "label": "Synthetic plate · illustrative composite only" },
+  "inputs": ["source-video", "frame-range", "impact-position", "optional-mask"],
+  "outputs": ["composite-layer", "alpha-mask", "operation-manifest"],
+  "parameters": [
+    { "id": "intensity", "label": "Impact energy", "group": "Impact", "type": "range", "default": 0.62, "min": 0, "max": 1, "step": 0.01 },
+    { "id": "blood", "label": "Cinematic overlay", "group": "Impact", "type": "range", "default": 0.18, "min": 0, "max": 1, "step": 0.01 },
+    { "id": "debris", "label": "Debris", "group": "Secondary elements", "type": "range", "default": 0.45, "min": 0, "max": 1, "step": 0.01 },
+    { "id": "smoke", "label": "Smoke", "group": "Secondary elements", "type": "range", "default": 0.25, "min": 0, "max": 1, "step": 0.01 },
+    { "id": "duration", "label": "Duration", "group": "Timing", "type": "range", "default": 18, "min": 1, "max": 96, "step": 1, "unit": "frames" },
+    { "id": "blend", "label": "Blend mode", "group": "Compositing", "type": "select", "default": "screen", "options": ["screen", "add", "normal"] }
+  ],
+  "capabilities": { "ai": ["video-generation", "inpainting", "analysis"], "mcp": ["media.inspect", "tracking.track-point", "composite.add-layer"], "davinci": ["fusion.add-layer", "timeline.set-keyframes"] },
+  "execution": { "mode": "demo", "adapter": "composite.overlay", "safety": "media-compositing-only" }
+}
